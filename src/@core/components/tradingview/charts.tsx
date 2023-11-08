@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from 'src/context/AuthContext'
 
-export default function TradingViewCharts() {
+export default function TradingViewCharts({ selectedAssets, exchanges }) {
   const onLoadScriptRef = useRef()
   const { user } = useContext(AuthContext)
 
@@ -29,27 +29,37 @@ export default function TradingViewCharts() {
 
     function createWidget() {
       if (document.getElementById('tradingview_97778') && 'TradingView' in window) {
-        const userWatchlist = ['BINANCE:BTCUSDT', 'HUOBI:BTCUSDT']
+        const userWatchlist = []
+        console.log('exchange:', exchanges)
+        console.log('asset', selectedAssets)
+
+        for (const asset of selectedAssets) {
+          const formattedAsset = asset.replace('/', '') // Remove the '/' character
+          userWatchlist.push(`${exchanges}:${formattedAsset}`)
+        }
 
         new window.TradingView.widget({
           autosize: false,
-          symbol: 'BINANCE:BTCUSD',
+          symbol: userWatchlist[0],
           interval: 'D',
           timezone: 'Etc/UTC',
-          theme: 'light',
+          theme: 'dark',
           style: '1',
           width: '100%',
           height: 510,
           locale: 'en',
           enable_publishing: false,
           allow_symbol_change: true,
-          watchlist: ['BINANCE:ETHUSDT', 'BINANCE:BNBUSDT', 'BINANCE:XRPUSDT'],
+          show_popup_button: true,
+          popup_width: '1000',
+          popup_height: '650',
+          watchlist: userWatchlist, // Usando a lista de ativos criada
           details: true,
           container_id: 'tradingview_97778'
         })
       }
     }
-  }, [])
+  }, [exchanges])
 
   return (
     <div className='tradingview-widget-container'>

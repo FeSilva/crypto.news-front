@@ -5,12 +5,14 @@ const navigation = (): HorizontalNavItemsType => [
   {
     title: 'Noticias',
     path: '/news',
-    icon: 'tabler:smart-home'
+    auth: false,
+    icon: 'tabler:news'
   },
   {
     title: 'Mercado Cripto',
     path: '/coin-ranking',
-    icon: 'tabler:mail'
+    auth: false,
+    icon: 'tabler:quality'
   },
   {
     title: 'Exchanges',
@@ -35,14 +37,16 @@ const navigation = (): HorizontalNavItemsType => [
     path: '/market-charts',
     action: 'read',
     subject: 'acl-page',
+    auth: false,
     title: 'Gráficos de Mercado',
     icon: 'tabler:shield'
   },
   {
-    path: '/AssetTesting',
+    path: '/wallet-test',
     action: 'read',
     subject: 'acl-page',
-    title: 'Teste em Carteira',
+    auth: false,
+    title: 'Portfolio Balance Test',
     icon: 'tabler:shield'
   }
 ]

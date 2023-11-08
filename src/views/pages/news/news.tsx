@@ -11,6 +11,20 @@ import Card from '@mui/material/Card'
 function NewsPage() {
   const [news, setNews] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    // Realize a requisição para localhost:8080/api/coin-ranking aqui
+    axios
+      .get(`http://localhost:8080/api/news?search_item=bitcoin`)
+      .then(response => {
+        console.log(response.data.articles)
+        setNews(response.data.articles)
+      })
+      .catch(error => {
+        console.error('Erro na requisição:', error)
+      })
+  }, [])
+
   const handleSearch = () => {
     axios
       .get(`http://localhost:8080/api/news?search_item=${searchTerm}`)

@@ -22,8 +22,11 @@ const AppBarContent = (props: Props) => {
   const { hidden, settings, saveSettings } = props
   const auth = useAuth()
 
-  // ** <UserDropdown settings={settings} />
-  return <Box sx={{ display: 'flex', alignItems: 'center' }}></Box>
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <UserDropdown settings={settings} />
+    </Box>
+  )
 }
 
 export default AppBarContent
